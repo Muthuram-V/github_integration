@@ -1,0 +1,80 @@
+GitHub OAuth Integration (Node.js Backend)
+This project demonstrates how to implement GitHub OAuth authentication in a Node.js + Express backend.
+Users can log in with their GitHub accounts, and the app can securely access their GitHub data with their permission.
+
+What is GitHub OAuth?
+GitHub OAuth is an industry-standard protocol for authorization.
+It allows users to grant your app access to their GitHub account data (like profile and repositories) without sharing their password.
+Your app receives an access token, which can be used to make authorized API requests on the user’s behalf.
+
+How GitHub OAuth Works
+User clicks “Login with GitHub” in your app.
+
+Your app redirects the user to GitHub’s authorization page.
+
+User approves the requested permissions.
+
+GitHub redirects back to your app with a temporary code.
+
+Your backend exchanges this code for an access token.
+
+You use the access token to fetch the user’s GitHub profile and other data as needed.
+
+Setup Instructions
+1. Register a GitHub OAuth App
+Go to GitHub Developer Settings.
+
+Click "New OAuth App".
+
+Fill in:
+
+Application name: Your app’s name
+
+Homepage URL: http://localhost:3000
+
+Authorization callback URL: http://localhost:3000/api/auth/github/callback
+
+Click Register Application.
+
+Copy your Client ID and Client Secret.
+
+2. Configure Environment Variables
+Create a .env file in your project root:
+
+text
+GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_SECRET=your_client_secret
+GITHUB_CALLBACK_URL=http://localhost:3000/api/auth/github/callback
+PORT=3000
+3. Install Dependencies
+text
+npm install express axios dotenv
+4. Project Structure
+text
+src/
+├── controllers/
+│   └── authController.js
+├── routes/
+│   └── apiRoutes.js
+├── app.js
+└── server.js
+5. Implement GitHub OAuth Routes
+/api/auth/github
+Redirects user to GitHub for authentication.
+
+/api/auth/github/callback
+Handles GitHub’s callback, exchanges code for access token, fetches user profile.
+
+(See src/controllers/authController.js for implementation.)
+
+How to Test
+Start your server:
+
+text
+npm start
+In your browser, go to:
+http://localhost:3000/api/auth/github
+
+Authorize the application on GitHub.
+
+You’ll be redirected back to your app, and the backend will handle the OAuth callback, returning your GitHub profile info.
